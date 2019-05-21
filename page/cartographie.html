@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset='utf-8' />
+  <title>NANTES - Lieux visités, Lieux à visiter</title>
+  <!--BOOTSTRAP-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!--MAPBOX-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <!--CSS-->
+  <!-- <link rel="stylesheet" href="..//assets/styles/style.css"> -->
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .mapboxgl-popup {
+      max-width: 200px;
+      text-align: center;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    h1 {
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER NOT VISIBLE, IN CASE WE WANT TO SHOW IT HOVER THE MAP, ONE DAY -->
+  <!-- <header> -->
+    <!--title-->
+    <!-- <h1>Bienvenue dans la Belle Endormie</h1> -->
+    <!--navbar-->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light  bgnav">
+      <a class="navbar-brand" href="../index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../page/chateau.html" class="sr-only">Articles</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../page/incontournables.html">Incontournables</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../page/cartographie.html">Cartographie</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </nav>
+  </header> -->
+  <!-- HEADER NOT VISIBLE, IN CASE WE WANT TO SHOW IT HOVER THE MAP, ONE DAY -->
+
+  <div class="row">
+    <div id='map'>
+      <script>
+        //MAP----------------------------------------------------------
+        //set the map 
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFlbGVubiIsImEiOiJjanN3em9mdWQwaXd6NDNwNmU0MzE0eTZvIn0.VkVaPJja_qnrTdd4kqxZwA';
+        var map = new mapboxgl.Map
+          ({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
+            center: [-1.55, 47.21], // starting position [lng, lat]
+            zoom: 12, // starting zoom
+            attributionControl: false
+          });
+        // add zoom controle
+        map.addControl(new mapboxgl.AttributionControl(), 'top-left');
+
+
+        // POPUPS----------------------------------------------------------
+        // definition of the popup: TRENTEMOULT
+        var popup_trentemoult = new mapboxgl.Popup({ offset: 25 })
+          .setHTML("<h1><a href=\"../page/lieu-unique.html\" title=\"En savoir plus sur Trentemoult\">TRENTEMOULT</a></h1> <p><img src=\"../assets/images/trentemoult_mini.jpg\"></p> <p>Trentemoult, is a cute and typical little fishermen port of Loire region</p>")
+        // definition of the popup: MACHINES
+        var popup_machines = new mapboxgl.Popup({ offset: 25 })
+          .setHTML("<h1><a href=\"../page/machines.html\" title=\"En savoir plus sur les Machines\">LES MACHINES</a></h1> <p><img src=\"../assets/images/machine1_mini.jpg\"></p> <p>Venez decouvrir l'elephant, le carousel, et tous les animaux fantastiques de Jules Verne qui prennent vie sous les doigts magiques de la compagnie Royale Deluxe</p>")
+        // definition of the popup: CHATEAU
+        var popup_chateau = new mapboxgl.Popup({ offset: 25 })
+          .setHTML("<h1><a href=\"../page/chateau.html\" title=\"En savoir plus sur le Chateau\">LE CHATEAU</a></h1> <p><img src=\"../assets/images/chateau_mini.jpg\"></p> <p>Le chateau d'Anne de Bretagne, accueille désormais le musée de la ville de Nantes. Venez découvrir l'histoire de Nantes depuis le moyen age, jusqu'a la rehabilitation des friches industrielles en passant par l'esclavagisme</p>")
+        //to set HTML code inside de popup, BECAREFUL with the " inside de HTML: put \before the quotes
+
+
+        // MARKERS----------------------------------------------------------
+        // add marker to map: TRENTEMOULT
+        new mapboxgl.Marker()
+          .setLngLat([-1.584, 47.195]) //set the place on the map
+          .setPopup(popup_trentemoult) //set a popup on this marker
+          .addTo(map);
+        // add marker to map: LES MACHINES
+        new mapboxgl.Marker()
+          .setLngLat([-1.568, 47.207])
+          .setPopup(popup_machines)
+          .addTo(map);
+        // add marker to map: LE CHATEAU
+        new mapboxgl.Marker()
+          .setLngLat([-1.553, 47.217])
+          .setPopup(popup_chateau)
+          .addTo(map);
+
+      </script>
+    </div>
+    <!--DIV MAP-->
+  </div>
+  <!--DIV ROW-->
+
+
+  <!--JAVASCRIPT pour BOOTSTRAP-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</body>
+</html>
