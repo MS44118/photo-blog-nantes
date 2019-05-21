@@ -13,3 +13,4 @@ first project ever @wildcodeschool de Nantes, the second week of the training se
 ## Possible Improvements
 - All pages: CSS identical everywhere
 - home: size of the first picture identical to others homepage pictures (mobile size)
+- use javascript for dynamic update with new blog post ("articles" and "incontournables")
